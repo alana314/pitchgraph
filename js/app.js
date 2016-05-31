@@ -1,4 +1,4 @@
-var canvas, circle, text, group;
+var canvas, circle, text, group, anim;
 $(document).ready(function(){
 
 canvas = new fabric.Canvas('canvas');
@@ -24,9 +24,11 @@ group = new fabric.Group([ circle, text ], {
 
 canvas.add(group);
 
-scrollLeft();
+anim = setInterval(scrollLeft, 50);
 });
 
 function scrollLeft(){
-	group.animate('left', '-=100', { onChange: canvas.renderAll.bind(canvas), duration: 1000, onComplete: setTimeout(function(){scrollLeft();}, 1000), easing: function (t, b, c, d) {return c*t/d + b;} });
+  console.log('scroll left');
+	group.set('left', group.left - 2);
+  canvas.renderAll();
 }
