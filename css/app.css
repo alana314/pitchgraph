@@ -1,0 +1,5 @@
+#canvas {
+	width: calc(100% - 20px);
+	border: 1px solid red;
+	height: 50vh;
+}
