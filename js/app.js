@@ -410,8 +410,8 @@ function updatePitch( time ) {
   //console.log(ac);
 
   var newcircle = circle.clone();
-  newcircle.set({left: (-1 * group.left / 2 + 1), top: (ac /100)});
-  //console.log(ac / 200);
+  newcircle.set({left: (-1 * group.left / 2 + 1), top: -(ac /100)});
+  console.log(-(ac / 200));
   
   group.add(newcircle);
 
