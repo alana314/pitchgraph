@@ -418,7 +418,7 @@ function updatePitch( time ) {
     var newcircle = circle.clone();
     if(ac > 220)
     {
-      newcircle.set({color: 'green'});
+      newcircle.set({fill: 'green'});
     }
     newcircle.set({left: (-1 * group.left / 2 + 1), top: -(ac) + 100});
     console.log(ac, -(ac));  
