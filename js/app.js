@@ -39,7 +39,7 @@ $(document).ready(function(){
   anim = setInterval(scrollLeft, 20);
 
   thresholdline = new fabric.Path('M 0 0 L ' + canvasWidth +  ' 0 z');
-  thresholdline.set({top: -220 + 200, left: (canvasWidth / -2) - 5, fill: '#999', stroke: '#999'});
+  thresholdline.set({top: -220 + 200, left: (canvasWidth / -2) - 7, fill: '#999', stroke: '#999'});
   group.add(thresholdline);
 });
 
