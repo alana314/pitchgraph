@@ -1,42 +1,46 @@
 var canvas, text, group, anim, canvasWidth, canvasHeight;
 $(document).ready(function(){
-canvas = new fabric.Canvas('canvas');
-canvasWidth = $('#canvas').width(); 
-canvasHeight = $('#canvas').height();
-/*
-circle = new fabric.Circle({
-  radius: 100,
-  fill: '#eef',
-  scaleY: 0.5,
-  originX: 'center',
-  originY: 'center'
-});
+  canvas = new fabric.Canvas('canvas');
+  canvasWidth = $('#canvas').width(); 
+  canvasHeight = $('#canvas').height();
+  /*
+  circle = new fabric.Circle({
+    radius: 100,
+    fill: '#eef',
+    scaleY: 0.5,
+    originX: 'center',
+    originY: 'center'
+  });
 
-text = new fabric.Text('hello world', {
-  fontSize: 30,
-  originX: 'center',
-  originY: 'center'
-});
-*/
+  text = new fabric.Text('hello world', {
+    fontSize: 30,
+    originX: 'center',
+    originY: 'center'
+  });
+  */
 
-vertpaths = [];
-horzpaths = [];
+  vertpaths = [];
+  horzpaths = [];
 
-//paths.push()
-for(i = 0; i < canvasWidth + 10; i+=5)
-{
-  vertpaths.push(new fabric.Path('M 0 0 L 0 ' + canvasHeight + ' z'));
-  vertpaths[vertpaths.length - 1].set({top: 0, left: i, fill: '#999', stroke: '#999'});
-}
+  //paths.push()
+  for(i = 0; i < canvasWidth + 10; i+=5)
+  {
+    vertpaths.push(new fabric.Path('M 0 0 L 0 ' + canvasHeight + ' z'));
+    vertpaths[vertpaths.length - 1].set({top: 0, left: i, fill: '#999', stroke: '#999'});
+  }
 
-group = new fabric.Group(vertpaths, {
-  left: 0,
-  top: 0
-});
+  group = new fabric.Group(vertpaths, {
+    left: 0,
+    top: 0
+  });
 
-canvas.add(group);
+  canvas.add(group);
 
-anim = setInterval(scrollLeft, 20);
+  anim = setInterval(scrollLeft, 20);
+
+  thresholdline = new fabric.Path('M 0 0 L ' + canvasWidth +  ' 0 z');
+  thresholdline.set({top: -220 + 200, left: (canvasWidth / -2) - 7, fill: '#999', stroke: '#999'});
+  group.add(thresholdline);
 });
 
 circle = new fabric.Circle({
@@ -54,6 +58,7 @@ function scrollLeft(){
     vertpaths[vertpaths.length - 1].set({top: -1 * group.height / 2, left: group.width / 2, fill: '#999', stroke: '#999'});
     group.add(vertpaths[vertpaths.length - 1]);
   }
+  thresholdline.set({width: group.width});
   canvas.renderAll();
 }
 
@@ -408,13 +413,17 @@ function updatePitch( time ) {
   }
   */
   //console.log(ac);
-
-  var newcircle = circle.clone();
-  newcircle.set({left: (-1 * group.left / 2 + 1), top: (ac /100)});
-  //console.log(ac / 200);
-  
-  group.add(newcircle);
-
+  if(ac != -1)
+  {
+    var newcircle = circle.clone();
+    if(ac > 220)
+    {
+      newcircle.set({fill: 'green'});
+    }
+    newcircle.set({left: (-1 * group.left / 2 + 1), top: -(ac) + 200});
+    console.log(ac, -(ac));  
+    group.add(newcircle);
+  }
   if (!window.requestAnimationFrame)
     window.requestAnimationFrame = window.webkitRequestAnimationFrame;
   rafID = window.requestAnimationFrame( updatePitch );
