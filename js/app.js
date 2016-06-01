@@ -409,12 +409,12 @@ function updatePitch( time ) {
   */
   //console.log(ac);
   if(ac != -1)
-  var newcircle = circle.clone();
-  newcircle.set({left: (-1 * group.left / 2 + 1), top: -(ac)});
-  console.log(ac, -(ac));
-  
-  group.add(newcircle);
-
+  {
+    var newcircle = circle.clone();
+    newcircle.set({left: (-1 * group.left / 2 + 1), top: -(ac)});
+    console.log(ac, -(ac));  
+    group.add(newcircle);
+  }
   if (!window.requestAnimationFrame)
     window.requestAnimationFrame = window.webkitRequestAnimationFrame;
   rafID = window.requestAnimationFrame( updatePitch );
