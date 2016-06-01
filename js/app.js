@@ -38,8 +38,8 @@ $(document).ready(function(){
 
   anim = setInterval(scrollLeft, 20);
 
-  thresholdline = new fabric.Path('M ' + canvasWidth / -2 + ' 0 L ' + canvasWidth +  ' 0 z');
-  thresholdline.set({top: -220 + 100, left: 0, fill: '#999', stroke: '#999'});
+  thresholdline = new fabric.Path('M 0 0 L ' + canvasWidth +  ' 0 z');
+  thresholdline.set({top: -220 + 200, left: canvasWidth / -2, fill: '#999', stroke: '#999'});
   group.add(thresholdline);
 });
 
@@ -420,7 +420,7 @@ function updatePitch( time ) {
     {
       newcircle.set({fill: 'green'});
     }
-    newcircle.set({left: (-1 * group.left / 2 + 1), top: -(ac) + 100});
+    newcircle.set({left: (-1 * group.left / 2 + 1), top: -(ac) + 200});
     console.log(ac, -(ac));  
     group.add(newcircle);
   }
