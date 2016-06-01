@@ -46,6 +46,10 @@ circle = new fabric.Circle({
     originY: 'center'
   });
 
+thresholdline = new fabric.Path('M 0 0 L 0 ' + canvasWidth + 'z'));
+thresholdline.set({top: 220 + 100, left: 0, fill: '#999', stroke: '#999'});
+group.add(thresholdline);
+
 function scrollLeft(){
 	group.set({'left': group.left - 1, width: group.width + 1});
   if(group.width % 10 == 0)
@@ -54,6 +58,7 @@ function scrollLeft(){
     vertpaths[vertpaths.length - 1].set({top: -1 * group.height / 2, left: group.width / 2, fill: '#999', stroke: '#999'});
     group.add(vertpaths[vertpaths.length - 1]);
   }
+  thresholdline.set({width: group.width});
   canvas.renderAll();
 }
 
@@ -411,7 +416,7 @@ function updatePitch( time ) {
   if(ac != -1)
   {
     var newcircle = circle.clone();
-    newcircle.set({left: (-1 * group.left / 2 + 1), top: -(ac)});
+    newcircle.set({left: (-1 * group.left / 2 + 1), top: -(ac) + 100});
     console.log(ac, -(ac));  
     group.add(newcircle);
   }
