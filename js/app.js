@@ -58,7 +58,7 @@ function scrollLeft(){
     vertpaths[vertpaths.length - 1].set({top: -1 * group.height / 2, left: group.width / 2, fill: '#999', stroke: '#999'});
     group.add(vertpaths[vertpaths.length - 1]);
   }
-  thresholdline.set({width: group.width, left: group.width / -2});
+  thresholdline.set({width: group.width});
   canvas.renderAll();
 }
 
