@@ -1,3 +1,7 @@
+//Redirect to https
+if (window.location.protocol != "https:")
+    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+
 var canvas, text, group, anim, canvasWidth, canvasHeight;
 $(document).ready(function(){
   canvas = new fabric.Canvas('canvas');
