@@ -43,8 +43,11 @@ $(document).ready(function(){
   anim = setInterval(scrollLeft, 20);
 
   thresholdline = new fabric.Path('M 0 0 L ' + canvasWidth +  ' 0 z');
-  thresholdline.set({top: -220 + 200, left: (canvasWidth / -2) - 7, fill: '#999', stroke: '#999'});
+  thresholdline.set({top: -220 + 300, left: (canvasWidth / -2) - 7, fill: '#999', stroke: '#999'});
   group.add(thresholdline);
+  thresholdline2 = new fabric.Path('M 0 0 L ' + canvasWidth +  ' 0 z');
+  thresholdline2.set({top: -175 + 300, left: (canvasWidth / -2) - 7, fill: '#999', stroke: '#999'});
+  group.add(thresholdline2);
 });
 
 circle = new fabric.Circle({
@@ -55,7 +58,7 @@ circle = new fabric.Circle({
   });
 
 function scrollLeft(){
-	group.set({'left': group.left - 1, width: group.width + 1});
+	group.set({'left': group.left - 2, width: group.width + 2});
   if(group.width % 10 == 0)
   {
     vertpaths.push(new fabric.Path('M 0 0 L 0 ' + canvasHeight + ' z'));
@@ -63,6 +66,7 @@ function scrollLeft(){
     group.add(vertpaths[vertpaths.length - 1]);
   }
   thresholdline.set({width: group.width});
+  thresholdline2.set({width: group.width});
   canvas.renderAll();
 }
 
@@ -420,11 +424,11 @@ function updatePitch( time ) {
   if(ac != -1)
   {
     var newcircle = circle.clone();
-    if(ac > 220)
+    if(ac > 175)
     {
       newcircle.set({fill: 'green'});
     }
-    newcircle.set({left: (-1 * group.left / 2 + 1), top: -(ac) + 200});
+    newcircle.set({left: (-1 * group.left / 2 + 1), top: -(ac) + 300});
     console.log(ac, -(ac));  
     group.add(newcircle);
   }
