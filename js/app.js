@@ -149,18 +149,6 @@ function error() {
     alert('Stream generation failed.');
 }
 
-function getUserMedia(dictionary, callback) {
-    try {
-        navigator.getUserMedia = 
-          navigator.getUserMedia ||
-          navigator.webkitGetUserMedia ||
-          navigator.mozGetUserMedia;
-        navigator.getUserMedia(dictionary, callback, error);
-    } catch (e) {
-        alert('getUserMedia threw exception :' + e);
-    }
-}
-
 function gotStream(stream) {
     // Create an AudioNode from the stream.
     mediaStreamSource = audioContext.createMediaStreamSource(stream);
@@ -198,7 +186,7 @@ function toggleOscillator() {
     return "stop";
 }
 
-function toggleLiveInput() {
+async function toggleLiveInput() {
     if (isPlaying) {
         //stop playing and return
         sourceNode.stop( 0 );
@@ -209,18 +197,11 @@ function toggleLiveInput() {
       window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
         window.cancelAnimationFrame( rafID );
     }
-    getUserMedia(
-      {
-            "audio": {
-                "mandatory": {
-                    "googEchoCancellation": "false",
-                    "googAutoGainControl": "false",
-                    "googNoiseSuppression": "false",
-                    "googHighpassFilter": "false"
-                },
-                "optional": []
-            },
-        }, gotStream);
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: false,
+      audio: true
+    });
+    gotStream(stream);
 }
 
 function togglePlayback() {
