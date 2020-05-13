@@ -99,7 +99,8 @@ function error() {
 function getUserMedia(dictionary, callback) {
     try {
         navigator.getUserMedia = 
-        	navigator.getUserMedia ||
+        	navigator.MediaDevices.getUserMedia || 
+		navigator.getUserMedia ||
         	navigator.webkitGetUserMedia ||
         	navigator.mozGetUserMedia;
         navigator.getUserMedia(dictionary, callback, error);
