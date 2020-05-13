@@ -315,7 +315,7 @@ function autoCorrelate( buf, sampleRate ) {
 
 function updatePitch( time ) {
 	var cycles = new Array;
-	analyser.getFloatTimeDomainData( buf );
+	analyser.getByteTimeDomainData( buf );
 	var ac = autoCorrelate( buf, audioContext.sampleRate );
 	// TODO: Paint confidence meter on canvasElem here.
 
