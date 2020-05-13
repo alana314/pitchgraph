@@ -99,7 +99,8 @@ function error() {
 function getUserMedia(dictionary, callback) {
     try {
         navigator.getUserMedia = 
-        	navigator.getUserMedia ||
+        	navigator.MediaDevices.getUserMedia || 
+		navigator.getUserMedia ||
         	navigator.webkitGetUserMedia ||
         	navigator.mozGetUserMedia;
         navigator.getUserMedia(dictionary, callback, error);
@@ -314,7 +315,7 @@ function autoCorrelate( buf, sampleRate ) {
 
 function updatePitch( time ) {
 	var cycles = new Array;
-	analyser.getFloatTimeDomainData( buf );
+	analyser.getByteTimeDomainData( buf );
 	var ac = autoCorrelate( buf, audioContext.sampleRate );
 	// TODO: Paint confidence meter on canvasElem here.
 
