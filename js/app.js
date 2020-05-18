@@ -40,8 +40,6 @@ $(document).ready(function(){
 
   canvas.add(group);
 
-  anim = setInterval(scrollLeft, 20);
-
   thresholdline = new fabric.Path('M 0 0 L ' + canvasWidth +  ' 0 z');
   thresholdline.set({top: -220 + 300, left: (canvasWidth / -2) - 7, fill: '#999', stroke: '#999'});
   group.add(thresholdline);
@@ -236,7 +234,7 @@ function togglePlayback() {
 var rafID = null;
 var tracks = null;
 var buflen = 1024;
-var buf = new Uint32Array ( buflen );
+var buf = new Uint8Array ( buflen );
 
 var noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
@@ -306,7 +304,10 @@ function autoCorrelate( buf, sampleRate ) {
   }
   rms = Math.sqrt(rms/SIZE);
   if (rms<0.01) // not enough signal
+  {
+    console.log("Not enough signal")
     return -1;
+  }
 
   var lastCorrelation=1;
   for (var offset = MIN_SAMPLES; offset < MAX_SAMPLES; offset++) {
@@ -317,7 +318,7 @@ function autoCorrelate( buf, sampleRate ) {
     }
     correlation = 1 - (correlation/MAX_SAMPLES);
     correlations[offset] = correlation; // store it, for the tweaking we need to do below.
-    if ((correlation>0.9) && (correlation > lastCorrelation)) {
+    if ((correlation>0.1) && (correlation > lastCorrelation)) { //correlation > 0.9
       foundGoodCorrelation = true;
       if (correlation > best_correlation) {
         best_correlation = correlation;
@@ -348,6 +349,7 @@ function autoCorrelate( buf, sampleRate ) {
 
 function updatePitch( time ) {
   var cycles = new Array;
+  //analyser.getFloatTimeDomainData( buf );
   analyser.getByteTimeDomainData( buf );
   var ac = autoCorrelate( buf, audioContext.sampleRate );
   // TODO: Paint confidence meter on canvasElem here.
@@ -410,10 +412,15 @@ function updatePitch( time ) {
       newcircle.set({fill: 'green'});
     }
     newcircle.set({left: (-1 * group.left / 2 + 1), top: -(ac) + 300});
-    console.log(ac, -(ac));  
+    console.log(ac);  
     group.add(newcircle);
   }
   if (!window.requestAnimationFrame)
     window.requestAnimationFrame = window.webkitRequestAnimationFrame;
   rafID = window.requestAnimationFrame( updatePitch );
 }
+
+document.querySelector('button').addEventListener('click', e => {
+  audioContext.resume()
+  anim = setInterval(scrollLeft, 20)
+})
